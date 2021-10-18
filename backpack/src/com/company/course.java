@@ -65,6 +65,10 @@ public class course {
 
     ArrayList<video> getVideos(){return videos;}
 
+    public String dateSetter(){
+        return "234";
+    }
+
     void menuInstructor() {
         instructor iobj = new instructor("Josh");
         getInstructors().add(iobj);
@@ -75,6 +79,7 @@ public class course {
                 System.out.println(i + ". " + getInstructors().get(i).getName());
             }
             System.out.print("Chose id: ");
+
             // id of the instructor is received here
             int ch = sc.nextInt();
             System.out.println("Welcome: " + getInstructors().get(ch).getName());
@@ -83,10 +88,72 @@ public class course {
             while (selection != 9){
                 switch (selection){
                     case 1:
-                        System.out.println("lol");
+                        System.out.println("1. Add Lecture Slide");
+                        System.out.println("2. Add Lecture Video");
+                        int temp = sc.nextInt();
+                        String content_temp;
+                        if (temp == 1){
+                            slide slide_obj = new slide();
+                            System.out.print("Enter topic of slides: ");
+                            content_temp = sc.next();
+                            slide_obj.setTitle(content_temp);
+                            System.out.print("Enter number of slides: ");
+                            temp = sc.nextInt();
+                            slide_obj.setCount(temp);
+                            System.out.println("Enter content of slides");
+                            for (int i = 1; i <= temp; i++) {
+                                System.out.print("Content of slide " + i + ":");
+                                content_temp = sc.next();
+                                slide_obj.getSlides().add(content_temp);
+                            }
+//                            slide_obj.setDate(dateSetter);
+                            slide_obj.setUploadedBy(getInstructors().get(ch).getName());
+                            getSlides().add(slide_obj);
+                        }
+
+                        else if (temp == 2){
+                            video video_obj = new video();
+                            System.out.print("Enter topic of video: ");
+                            content_temp = sc.next();
+                            video_obj.setTitle(content_temp);
+                            System.out.print("Enter filename of video: ");
+                            content_temp = sc.next();
+
+                            //checker of the validity
+                            if (true){
+                                video_obj.setVideoFile(content_temp);
+//                                video_obj.setDate(dateSetter);
+                                getVideos().add(video_obj);
+                            }
+                            else{
+                                System.out.println("Wrong extension try again");
+                            }
+                            video_obj.setUploadedBy(getInstructors().get(ch).getName());
+                        }
                         break;
+
                     case 2:
-                        System.out.println("lol again");
+                        System.out.println("1. Add Assignment");
+                        System.out.println("2. Add Quiz");
+                        temp = sc.nextInt();
+                        if (temp == 1){
+                            assignment a_obj = new assignment();
+                            System.out.print("Enter a problem Statement: ");
+                            content_temp = sc.next();
+                            a_obj.setQuestion(content_temp);
+                            System.out.print("Enter Max marks: ");
+                            temp = sc.nextInt();
+                            a_obj.setMarks(temp);
+                            addAssignment(a_obj);
+                        }
+                        else if (temp == 2){
+                            quiz q_obj = new quiz();
+                            System.out.print("Enter quiz question: ");
+                            content_temp = sc.next();
+                            q_obj.setQuestion(content_temp);
+                            q_obj.setMarks(1);
+                            addQuiz(q_obj);
+                        }
                         break;
                 }
                 System.out.println();

@@ -8,6 +8,7 @@ public class Main {
         System.out.println("Welcome to Backpack");
         System.out.println("1. Enter as Instructor");
         System.out.println("2. Enter as Student");
+        System.out.println("3. Exit");
         ch = sc.nextInt();
         course c = new course();
         while (ch != 3 ){
@@ -16,9 +17,10 @@ public class Main {
                 case 2 -> c.menuStudent();
                 default -> System.out.println("wrong option try again");
             }
-            System.out.println("1. Welcome to Backpack");
-            System.out.println("2. Enter as Instructor");
-            System.out.println("3. Enter as Student");
+            System.out.println("Welcome to Backpack");
+            System.out.println("1. Enter as Instructor");
+            System.out.println("2. Enter as Student");
+            System.out.println("3. Exit");
             ch = sc.nextInt();
         }
     }
