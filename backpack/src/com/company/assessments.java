@@ -1,7 +1,7 @@
 package com.company;
 
 public interface assessments {
-//    int marks = 0;
-    void setQuestion(String a);
-    void setMarks(int m);
+    void setQuestion(String a, Object temp);
+    void setMarks(int m, Object temp);
+    void setDone();
 }

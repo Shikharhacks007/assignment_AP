@@ -7,10 +7,10 @@ public class slide implements materials {
     private String uploadedBy;
     private  String date;
     private int count;
-    private ArrayList <String> slides;
+    private ArrayList <String> innerSlides;
 
     public slide(){
-        slides  = new ArrayList<>();
+        innerSlides  = new ArrayList<>();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class slide implements materials {
     }
 
     public ArrayList<String> getSlides(){
-        return slides;
+        return innerSlides;
     }
 
     public void setCount(int count) {
@@ -56,7 +56,7 @@ public class slide implements materials {
     }
 
     public void setSlides(String obj) {
-        slides.add(obj);
+        innerSlides.add(obj);
     }
 
 }

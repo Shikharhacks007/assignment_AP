@@ -16,6 +16,14 @@ public class student {
         return name;
     }
 
+    void addPendingAssignments(assignment obj){
+        pendingAssignments.add(obj);
+    }
+
+    void addPendingquizzes(quiz obj){
+        pendingQuizzes.add(obj);
+    }
+
     ArrayList<assignment> getAssignments(){
         return pendingAssignments;
     }

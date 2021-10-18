@@ -29,14 +29,24 @@ public class course {
 
     void addAssignment(assignment obj){
         assignments.add(obj);
+        for (int i = 0; i < getStudents().size() ; i++) {
+            getStudents().get(i).addPendingAssignments(obj);
+        }
     }
 
     void addQuiz(quiz obj){
         quizzes.add(obj);
+        for (int i = 0; i < getStudents().size() ; i++) {
+            getStudents().get(i).addPendingquizzes(obj);
+        }
     }
 
     void addSlide(slide obj){
         slides.add(obj);
+    }
+
+    void addVideo(video obj){
+        videos.add(obj);
     }
 
     ArrayList<instructor> getInstructors(){
@@ -59,19 +69,37 @@ public class course {
         return slides;
     }
 
-    public void setVideos(video obj){
-        videos.add(obj);
-    }
-
     ArrayList<video> getVideos(){return videos;}
 
     public String dateSetter(){
         return "234";
     }
 
+    private void materialVideos() {
+        for (int i = 0; i < getVideos().size(); i++) {
+            System.out.println("Title of video: " + getVideos().get(i).getTitle());
+            System.out.println("Video File" + getVideos().get(i).getVideoFile());
+            System.out.println("Date of Upload: " + getVideos().get(i).getDate());
+            System.out.println("Uploaded by: " + getVideos().get(i).getUploadedBy());
+        }
+    }
+
+    private void materialSlides() {
+        for (int i = 0; i < getSlides().size(); i++) {
+            System.out.println("Title" + getSlides().get(i).getTitle());
+            for (int j = 0; j < getSlides().get(i).getCount(); j++) {
+                System.out.println("Slide " + j + getSlides().get(i).getSlides().get(j));
+            }
+            System.out.println("Number of Slides: " + getSlides().get(i).getCount());
+            System.out.println("Date of Upload: " + getSlides().get(i).getDate());
+            System.out.println("Uploaded by: " + getSlides().get(i).getUploadedBy());
+            System.out.println();
+        }
+    }
+
     void menuInstructor() {
         instructor iobj = new instructor("Josh");
-        getInstructors().add(iobj);
+        addInstructor(iobj);
         Scanner sc = new Scanner(System.in);
         System.out.println("instructors:");
         if (getInstructors().size()>=1) {
@@ -92,6 +120,7 @@ public class course {
                         System.out.println("2. Add Lecture Video");
                         int temp = sc.nextInt();
                         String content_temp;
+
                         if (temp == 1){
                             slide slide_obj = new slide();
                             System.out.print("Enter topic of slides: ");
@@ -108,7 +137,7 @@ public class course {
                             }
 //                            slide_obj.setDate(dateSetter);
                             slide_obj.setUploadedBy(getInstructors().get(ch).getName());
-                            getSlides().add(slide_obj);
+                            addSlide(slide_obj);
                         }
 
                         else if (temp == 2){
@@ -129,7 +158,9 @@ public class course {
                                 System.out.println("Wrong extension try again");
                             }
                             video_obj.setUploadedBy(getInstructors().get(ch).getName());
+                            addVideo(video_obj);
                         }
+
                         break;
 
                     case 2:
@@ -140,21 +171,31 @@ public class course {
                             assignment a_obj = new assignment();
                             System.out.print("Enter a problem Statement: ");
                             content_temp = sc.next();
-                            a_obj.setQuestion(content_temp);
+                            a_obj.setQuestion(content_temp, getInstructors().get(ch));
                             System.out.print("Enter Max marks: ");
                             temp = sc.nextInt();
-                            a_obj.setMarks(temp);
+                            a_obj.setMarks(temp,getInstructors().get(ch));
                             addAssignment(a_obj);
                         }
+
                         else if (temp == 2){
                             quiz q_obj = new quiz();
                             System.out.print("Enter quiz question: ");
                             content_temp = sc.next();
-                            q_obj.setQuestion(content_temp);
-                            q_obj.setMarks(1);
+                            q_obj.setQuestion(content_temp,getInstructors().get(ch));
+                            q_obj.setMarks(1, getInstructors().get(ch));
                             addQuiz(q_obj);
                         }
+
                         break;
+                    case 3:
+                        materialSlides();
+                        materialVideos();
+                        break;
+
+                    case 4:
+
+
                 }
                 System.out.println();
                 System.out.println("Welcome: " + getInstructors().get(ch).getName());
@@ -164,9 +205,10 @@ public class course {
         }
     }
 
+
     void menuStudent() {
         student sobj = new student("Shikhs");
-        getStudents().add(sobj);
+        addStudent(sobj);
         Scanner sc = new Scanner(System.in);
         System.out.println("Students:");
         if (getStudents().size()>=1) {
@@ -182,23 +224,9 @@ public class course {
             while (selection != 7){
                 switch (selection){
                     case 1:
-                        for (int i = 0; i < getSlides().size(); i++) {
-                            System.out.println("Title" + getSlides().get(i).getTitle());
-                            for (int j = 0; j < getSlides().get(i).getCount(); j++) {
-                                System.out.println("Slide " + j + getSlides().get(i).getSlides().get(j));
-                            }
-                            System.out.println("Number of Slides: " + getSlides().get(i).getCount());
-                            System.out.println("Date of Upload: " + getSlides().get(i).getDate());
-                            System.out.println("Uploaded by: " + getSlides().get(i).getUploadedBy());
-                            System.out.println();
-                        }
+                        materialSlides();
 
-                        for (int i = 0; i < getVideos().size(); i++) {
-                            System.out.println("Title of video: " + getVideos().get(i).getTitle());
-                            System.out.println("Video File" + getVideos().get(i).getVideoFile());
-                            System.out.println("Date of Upload: " + getVideos().get(i).getDate());
-                            System.out.println("Uploaded by: " + getVideos().get(i).getUploadedBy());
-                        }
+                        materialVideos();
                         break;
 
                     case 2:
