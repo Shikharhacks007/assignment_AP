@@ -6,15 +6,17 @@ import java.util.Scanner;
 public class course {
     private final ArrayList <student> students;
     private final ArrayList <instructor> instructors;
-    private final ArrayList <assignment> assignments;
-    private final ArrayList <quiz> quizzes;
+    private final ArrayList <assessments> assessments;
+    private final ArrayList <comment> comments;
+//    private final ArrayList <quiz> quizzes;
     private final ArrayList <slide> slides;
     private final ArrayList <video> videos;
     public course(){
         students = new ArrayList<>();
         instructors = new ArrayList<>();
-        assignments = new ArrayList<>();
-        quizzes = new ArrayList<>();
+        assessments  = new ArrayList<>();
+//        quizzes = new ArrayList<>();
+        comments = new ArrayList<>();
         slides = new ArrayList<>();
         videos = new ArrayList<>();
     }
@@ -27,19 +29,19 @@ public class course {
         students.add(obj);
     }
 
-    void addAssignment(assignment obj){
-        assignments.add(obj);
+    void addAssessments(assessments obj){
+        assessments.add(obj);
         for (int i = 0; i < getStudents().size() ; i++) {
-            getStudents().get(i).addPendingAssignments(obj);
+            getStudents().get(i).addPendingAssessments(obj);
         }
     }
 
-    void addQuiz(quiz obj){
-        quizzes.add(obj);
-        for (int i = 0; i < getStudents().size() ; i++) {
-            getStudents().get(i).addPendingquizzes(obj);
-        }
-    }
+//    void addQuiz(quiz obj){
+//        quizzes.add(obj);
+//        for (int i = 0; i < getStudents().size() ; i++) {
+//            getStudents().get(i).addPendingquizzes(obj);
+//        }
+//    }
 
     void addSlide(slide obj){
         slides.add(obj);
@@ -57,12 +59,20 @@ public class course {
         return students;
     }
 
-    ArrayList<assignment> getAssignments(){
-        return assignments;
+    ArrayList<assessments> getAssessments(){
+        return assessments;
     }
 
-    ArrayList<quiz> getQuizzes(){
-        return quizzes;
+//    ArrayList<quiz> getQuizzes(){
+//        return quizzes;
+//    }
+
+    ArrayList <comment> getComments(){
+        return comments;
+    }
+
+    void addComments(comment obj){
+        comments.add(obj);
     }
 
     ArrayList<slide> getSlides(){
@@ -94,6 +104,22 @@ public class course {
             System.out.println("Date of Upload: " + getSlides().get(i).getDate());
             System.out.println("Uploaded by: " + getSlides().get(i).getUploadedBy());
             System.out.println();
+        }
+    }
+
+    private void viewAssessments() {
+        for (int i = 0; i < getAssessments().size(); i++) {
+            if (!getAssessments().get(i).getDone()){
+                if(getAssessments().get(i) instanceof assignment){
+                    System.out.println("ID: " + i + " Assignment: " +
+                            ((assignment) getAssessments().get(i)).getQuestion() + "Max Marks: "
+                            + ((assignment) getAssessments().get(i)).getMarks());
+                }
+                else{
+                    System.out.println("ID: " + i + " Question: " +
+                            ((quiz) getAssessments().get(i)).getQuestion());
+                }
+            }
         }
     }
 
@@ -175,7 +201,7 @@ public class course {
                             System.out.print("Enter Max marks: ");
                             temp = sc.nextInt();
                             a_obj.setMarks(temp,getInstructors().get(ch));
-                            addAssignment(a_obj);
+                            addAssessments(a_obj);
                         }
 
                         else if (temp == 2){
@@ -184,7 +210,7 @@ public class course {
                             content_temp = sc.next();
                             q_obj.setQuestion(content_temp,getInstructors().get(ch));
                             q_obj.setMarks(1, getInstructors().get(ch));
-                            addQuiz(q_obj);
+                            addAssessments(q_obj);
                         }
 
                         break;
@@ -194,8 +220,37 @@ public class course {
                         break;
 
                     case 4:
+                        viewAssessments();
+                        break;
+                    case 5:
+                        System.out.println("grade");
+                        break;
+                    case 6:
+                        System.out.println("List of Open Assessments");
+                        if (getAssessments().size()>=1){
+                            viewAssessments();
+                            System.out.print("Enter id of assignment to close: ");
+                            temp = sc.nextInt();
+                            getAssessments().get(temp).setDone();
+                        }
+                        else{
+                            System.out.println("Nothing is open");
+                        }
+                        break;
 
+                    case 7:
+                        for (int i = 0; i < getComments().size() ; i++) {
+                            System.out.println(getComments().get(i).getMessage() + " - " +  getComments().get(i).getName());
+                            System.out.println(getComments().get(i).getDate());
+                        }
+                        break;
 
+                    case 8:
+                        System.out.print("Enter comment: ");
+                        content_temp = sc.nextLine();
+                        String date = "34";
+                        comment cobj = new comment(getInstructors().get(ch).getName(),date,content_temp );
+                        addComments(cobj);
                 }
                 System.out.println();
                 System.out.println("Welcome: " + getInstructors().get(ch).getName());
@@ -204,7 +259,6 @@ public class course {
             }
         }
     }
-
 
     void menuStudent() {
         student sobj = new student("Shikhs");
@@ -225,24 +279,34 @@ public class course {
                 switch (selection){
                     case 1:
                         materialSlides();
-
                         materialVideos();
                         break;
 
                     case 2:
-                        System.out.println("View assignments");
+                        viewAssessments();
                         break;
+
                     case 3:
                         System.out.println("submit");
                         break;
+
                     case 4:
                         System.out.println("View grades");
                         break;
+
                     case 5:
-                        System.out.println("add comments");
+                        for (int i = 0; i < getComments().size() ; i++) {
+                            System.out.println(getComments().get(i).getMessage() + " - " +  getComments().get(i).getName());
+                            System.out.println(getComments().get(i).getDate());
+                        }
                         break;
                     case 6:
-                        System.out.println("view comments");
+                        System.out.print("Enter comment: ");
+                        String content_temp = sc.nextLine();
+                        String date = "34";
+                        comment cobj = new comment(getStudents().get(ch).getName(),date,content_temp );
+                        addComments(cobj);
+
                 }
 
                 System.out.println();

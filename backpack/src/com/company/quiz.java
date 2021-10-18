@@ -31,12 +31,19 @@ public class quiz implements assessments {
         }
     }
 
-    int getMarks() {
+    @Override
+    public int getMarks() {
         return marks;
     }
 
-    String getQuestion(){
+    @Override
+    public String getQuestion(){
         return question;
+    }
+
+    @Override
+    public boolean getDone(){
+        return done;
     }
 
     @Override
