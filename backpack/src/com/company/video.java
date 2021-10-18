@@ -5,15 +5,12 @@ public class video implements materials {
     private String uploadedBy;
     private  String date;
     private String videoFile;
-    public video(){
-        title ="";
-        uploadedBy="";
-    }
 
     @Override
     public void setTitle(String a){
         title = a;
     }
+
     @Override
     public String getTitle(){
         return title;
@@ -41,5 +38,9 @@ public class video implements materials {
 
     public void setVideoFile(String a){
         videoFile = a;
+    }
+
+    public String getVideoFile(){
+        return videoFile;
     }
 }
