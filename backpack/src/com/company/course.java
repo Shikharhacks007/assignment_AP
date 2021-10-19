@@ -72,7 +72,7 @@ public class course {
     ArrayList<video> getVideos(){return videos;}
 
     public String dateSetter(){
-        SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss.SSS zzz yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         Date date = new Date();
         return df.format(date);
     }
@@ -272,7 +272,7 @@ public class course {
                             System.out.println(i + getStudents().get(i).getName());
                         }
                         int temp_student = sc.nextInt();
-                        if (!getStudents().get(temp_student).work.isEmpty()){
+                        if (getStudents().get(temp_student).work.containsKey(getAssessments().get(temp))){
                             System.out.println("Submission: " + getStudents().get(temp_student).work.get(getAssessments().get(temp)).getSubmissionData());
                             System.out.println("Max Marks: " + getAssessments().get(temp).getMarks());
                             System.out.print("Marks Scored: ");
