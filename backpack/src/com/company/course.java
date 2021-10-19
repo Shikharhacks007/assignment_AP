@@ -1,5 +1,8 @@
 package com.company;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,7 +75,6 @@ public class course {
     public String dateSetter(){
         SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss.SSS zzz yyyy");
         Date date = new Date();
-        System.out.println(df.format(date));
         return df.format(date);
     }
 
@@ -114,7 +116,28 @@ public class course {
         }
     }
 
-     public void start(){
+    private boolean checkFile(String content_temp, user obj) {
+        String[] arr = content_temp.split("\\.", 1);
+        if (obj instanceof instructor){
+            if(arr.length == 2){
+                return arr[1].equals("mp4");
+            }
+            else{
+                return false;
+            }
+        }
+        else if (obj instanceof student){
+            if(arr.length != 2){
+                return arr[1].equals("zip");
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public void start(){
         instructor iobj = new instructor("Josh");
         addInstructor(iobj);
         instructor iobj1 = new instructor("hosh");
@@ -129,7 +152,8 @@ public class course {
 
     }
 
-    void menuInstructor() {
+    void menuInstructor() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         System.out.println("instructors:");
         if (getInstructors().size()>=1) {
@@ -142,6 +166,7 @@ public class course {
             int ch = sc.nextInt();
             System.out.println("Welcome: " + getInstructors().get(ch).getName());
             System.out.println("Instructor Menu");
+            getInstructors().get(ch).menu();
             int selection = sc.nextInt();
             while (selection != 9){
                 switch (selection){
@@ -154,7 +179,7 @@ public class course {
                         if (temp == 1){
                             slide slide_obj = new slide();
                             System.out.print("Enter topic of slides: ");
-                            content_temp = sc.next();
+                            content_temp = br.readLine();
                             slide_obj.setTitle(content_temp);
                             System.out.print("Enter number of slides: ");
                             temp = sc.nextInt();
@@ -162,7 +187,7 @@ public class course {
                             System.out.println("Enter content of slides");
                             for (int i = 1; i <= temp; i++) {
                                 System.out.print("Content of slide " + i + ":");
-                                content_temp = sc.next();
+                                content_temp = br.readLine();
                                 slide_obj.getSlides().add(content_temp);
                             }
                             slide_obj.setDate(dateSetter());
@@ -173,19 +198,19 @@ public class course {
                         else if (temp == 2){
                             video video_obj = new video();
                             System.out.print("Enter topic of video: ");
-                            content_temp = sc.next();
+                            content_temp = br.readLine();
                             video_obj.setTitle(content_temp);
                             System.out.print("Enter filename of video: ");
                             content_temp = sc.next();
 
                             //checker of the validity
-                            if (true){
+                            if (!checkFile(content_temp,getInstructors().get(ch))){
+                                while(!checkFile(content_temp,getInstructors().get(ch))){
+                                    System.out.println("Enter again with right extension");
+                                    content_temp = br.readLine();
+                                }
                                 video_obj.setVideoFile(content_temp);
                                 video_obj.setDate(dateSetter());
-                                getVideos().add(video_obj);
-                            }
-                            else{
-                                System.out.println("Wrong extension try again");
                             }
                             video_obj.setUploadedBy(getInstructors().get(ch).getName());
                             addVideo(video_obj);
@@ -200,7 +225,7 @@ public class course {
                         if (temp == 1){
                             assignment a_obj = new assignment();
                             System.out.print("Enter a problem Statement: ");
-                            content_temp = sc.next();
+                            content_temp = br.readLine();
                             a_obj.setQuestion(content_temp, getInstructors().get(ch));
                             System.out.print("Enter Max marks: ");
                             temp = sc.nextInt();
@@ -211,7 +236,7 @@ public class course {
                         else if (temp == 2){
                             quiz q_obj = new quiz();
                             System.out.print("Enter quiz question: ");
-                            content_temp = sc.next();
+                            content_temp = br.readLine();
                             q_obj.setQuestion(content_temp,getInstructors().get(ch));
                             q_obj.setMarks(1, getInstructors().get(ch));
                             addAssessments(q_obj);
@@ -275,7 +300,7 @@ public class course {
 
                     case 8:
                         System.out.print("Enter comment: ");
-                        content_temp = sc.nextLine();
+                        content_temp = br.readLine();
                         comment cobj = new comment(getInstructors().get(ch).getName(),dateSetter(),content_temp );
                         addComments(cobj,getInstructors().get(ch));
                 }
@@ -288,7 +313,8 @@ public class course {
         }
     }
 
-    void menuStudent() {
+    void menuStudent() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         System.out.println("Students:");
         if (getStudents().size()>=1) {
@@ -300,6 +326,7 @@ public class course {
             int ch = sc.nextInt();
             System.out.println("Welcome: " + getStudents().get(ch).getName());
             System.out.println("Student Menu");
+            getStudents().get(ch).menu();
             int selection = sc.nextInt();
             while (selection != 7){
                 switch (selection){
@@ -336,10 +363,10 @@ public class course {
                             content_temp = sc.next();
 
                             // check extension validity
-                            if (false){
-                                while (true){
+                            if (!checkFile(content_temp,getStudents().get(ch))){
+                                while (checkFile(content_temp,getStudents().get(ch))){
                                     System.out.println("Enter again with right extension");
-                                    content_temp = sc.next();
+                                    content_temp = br.readLine();
                                 }
                             }
                             submissions_obj.setSubmissionFile(content_temp);
@@ -347,7 +374,7 @@ public class course {
                         }
                         else{
                             System.out.print(getAssessments().get(temp).getQuestion() + ": ");
-                            content_temp = sc.next();
+                            content_temp = br.readLine();
                             // check extension validity
                             submissions_obj.setSubmissionFile(content_temp);
                             getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
@@ -380,7 +407,7 @@ public class course {
 
                     case 6:
                         System.out.print("Enter comment: ");
-                        content_temp = sc.next();
+                        content_temp = br.readLine();
                         comment cobj = new comment(getStudents().get(ch).getName(),dateSetter(),content_temp );
                         addComments(cobj, getStudents().get(ch));
                         break;
