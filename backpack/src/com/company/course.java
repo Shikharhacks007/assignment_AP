@@ -276,8 +276,7 @@ public class course {
                     case 8:
                         System.out.print("Enter comment: ");
                         content_temp = sc.nextLine();
-                        String date = "34";
-                        comment cobj = new comment(getInstructors().get(ch).getName(),date,content_temp );
+                        comment cobj = new comment(getInstructors().get(ch).getName(),dateSetter(),content_temp );
                         addComments(cobj,getInstructors().get(ch));
                 }
                 System.out.println();
@@ -335,6 +334,7 @@ public class course {
                         if (getAssessments().get(temp) instanceof assignment){
                             System.out.print("Enter filename of assignment");
                             content_temp = sc.next();
+
                             // check extension validity
                             if (false){
                                 while (true){
@@ -381,8 +381,7 @@ public class course {
                     case 6:
                         System.out.print("Enter comment: ");
                         content_temp = sc.next();
-                        String date = "34";
-                        comment cobj = new comment(getStudents().get(ch).getName(),date,content_temp );
+                        comment cobj = new comment(getStudents().get(ch).getName(),dateSetter(),content_temp );
                         addComments(cobj, getStudents().get(ch));
                         break;
 
