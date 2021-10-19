@@ -293,7 +293,10 @@ public class course {
                             viewAssessments();
                             System.out.print("Enter id of assignment to close: ");
                             temp = sc.nextInt();
-                            getAssessments().get(temp).setOpen();
+                            if (temp < getAssessments().size())
+                                getAssessments().get(temp).setOpen();
+                            else
+                                break;
                         }
                         else{
                             System.out.println("Nothing is open");
