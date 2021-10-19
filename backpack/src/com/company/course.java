@@ -1,6 +1,8 @@
 package com.company;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -31,9 +33,6 @@ public class course {
 
     void addAssessments(assessments obj){
         assessments.add(obj);
-//        for (int i = 0; i < getStudents().size() ; i++) {
-//            getStudents().get(i).addPendingAssessments(obj);
-//        }
     }
 
     void addSlide(slide obj){
@@ -56,12 +55,12 @@ public class course {
         return assessments;
     }
 
-    ArrayList <comment> getComments(){
-        return comments;
+    void viewComments (user uobj){
+        uobj.view_comments(comments);
     }
 
-    void addComments(comment obj){
-        comments.add(obj);
+    void addComments(comment obj, user uobj){
+        uobj.add_comments(comments, obj);
     }
 
     ArrayList<slide> getSlides(){
@@ -71,7 +70,10 @@ public class course {
     ArrayList<video> getVideos(){return videos;}
 
     public String dateSetter(){
-        return "234";
+        SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss.SSS zzz yyyy");
+        Date date = new Date();
+        System.out.println(df.format(date));
+        return df.format(date);
     }
 
     private void materialVideos() {
@@ -126,6 +128,7 @@ public class course {
         addStudent(sobj2);
 
     }
+
     void menuInstructor() {
         Scanner sc = new Scanner(System.in);
         System.out.println("instructors:");
@@ -162,7 +165,7 @@ public class course {
                                 content_temp = sc.next();
                                 slide_obj.getSlides().add(content_temp);
                             }
-//                            slide_obj.setDate(dateSetter);
+                            slide_obj.setDate(dateSetter());
                             slide_obj.setUploadedBy(getInstructors().get(ch).getName());
                             addSlide(slide_obj);
                         }
@@ -178,7 +181,7 @@ public class course {
                             //checker of the validity
                             if (true){
                                 video_obj.setVideoFile(content_temp);
-//                                video_obj.setDate(dateSetter);
+                                video_obj.setDate(dateSetter());
                                 getVideos().add(video_obj);
                             }
                             else{
@@ -267,10 +270,7 @@ public class course {
                         break;
 
                     case 7:
-                        for (int i = 0; i < getComments().size() ; i++) {
-                            System.out.println(getComments().get(i).getMessage() + " - " +  getComments().get(i).getName());
-                            System.out.println(getComments().get(i).getDate());
-                        }
+                        viewComments(getInstructors().get(ch));
                         break;
 
                     case 8:
@@ -278,11 +278,12 @@ public class course {
                         content_temp = sc.nextLine();
                         String date = "34";
                         comment cobj = new comment(getInstructors().get(ch).getName(),date,content_temp );
-                        addComments(cobj);
+                        addComments(cobj,getInstructors().get(ch));
                 }
                 System.out.println();
                 System.out.println("Welcome: " + getInstructors().get(ch).getName());
                 System.out.println("instructors menu");
+                getInstructors().get(ch).menu();
                 selection = sc.nextInt();
             }
         }
@@ -374,23 +375,23 @@ public class course {
                         break;
 
                     case 5:
-                        for (int i = 0; i < getComments().size() ; i++) {
-                            System.out.println(getComments().get(i).getMessage() + " - " +  getComments().get(i).getName());
-                            System.out.println(getComments().get(i).getDate());
-                        }
+                        viewComments(getStudents().get(ch));
                         break;
+
                     case 6:
                         System.out.print("Enter comment: ");
                         content_temp = sc.next();
                         String date = "34";
                         comment cobj = new comment(getStudents().get(ch).getName(),date,content_temp );
-                        addComments(cobj);
+                        addComments(cobj, getStudents().get(ch));
+                        break;
 
                 }
 
                 System.out.println();
                 System.out.println("Welcome: " + getStudents().get(ch).getName());
                 System.out.println("Student menu");
+                getStudents().get(ch).menu();
                 selection = sc.nextInt();
             }
         }

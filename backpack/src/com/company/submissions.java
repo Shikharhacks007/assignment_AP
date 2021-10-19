@@ -25,6 +25,7 @@ public class submissions {
     void setGradedBy(Object temp, String name){
         if (temp instanceof instructor){
             gradedBy = name;
+            graded = true;
         }
         else{
             System.out.println("not allowed");
@@ -49,11 +50,5 @@ public class submissions {
 
     boolean getGraded(){
         return graded;
-    }
-
-    void setGraded(Object temp){
-        if (temp instanceof instructor){
-            graded = true;
-        }
     }
 }
