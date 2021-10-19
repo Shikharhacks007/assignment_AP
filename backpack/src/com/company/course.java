@@ -9,7 +9,6 @@ public class course {
     private final ArrayList <instructor> instructors;
     private final ArrayList <assessments> assessments;
     private final ArrayList <comment> comments;
-//    private final ArrayList <quiz> quizzes;
     private final ArrayList <slide> slides;
     private final ArrayList <video> videos;
     public course(){
@@ -32,17 +31,10 @@ public class course {
 
     void addAssessments(assessments obj){
         assessments.add(obj);
-        for (int i = 0; i < getStudents().size() ; i++) {
-            getStudents().get(i).addPendingAssessments(obj);
-        }
-    }
-
-//    void addQuiz(quiz obj){
-//        quizzes.add(obj);
 //        for (int i = 0; i < getStudents().size() ; i++) {
-//            getStudents().get(i).addPendingquizzes(obj);
+//            getStudents().get(i).addPendingAssessments(obj);
 //        }
-//    }
+    }
 
     void addSlide(slide obj){
         slides.add(obj);
@@ -63,10 +55,6 @@ public class course {
     ArrayList<assessments> getAssessments(){
         return assessments;
     }
-
-//    ArrayList<quiz> getQuizzes(){
-//        return quizzes;
-//    }
 
     ArrayList <comment> getComments(){
         return comments;
@@ -124,9 +112,21 @@ public class course {
         }
     }
 
-    void menuInstructor() {
+     public void start(){
         instructor iobj = new instructor("Josh");
         addInstructor(iobj);
+        instructor iobj1 = new instructor("hosh");
+        addInstructor(iobj1);
+
+        student sobj = new student("Shikhs");
+        addStudent(sobj);
+        student sobj1 = new student("Aditya");
+        addStudent(sobj1);
+        student sobj2 = new student("Anis");
+        addStudent(sobj2);
+
+    }
+    void menuInstructor() {
         Scanner sc = new Scanner(System.in);
         System.out.println("instructors:");
         if (getInstructors().size()>=1) {
@@ -289,8 +289,6 @@ public class course {
     }
 
     void menuStudent() {
-        student sobj = new student("Shikhs");
-        addStudent(sobj);
         Scanner sc = new Scanner(System.in);
         System.out.println("Students:");
         if (getStudents().size()>=1) {

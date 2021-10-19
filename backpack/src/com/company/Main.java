@@ -11,6 +11,7 @@ public class Main {
         System.out.println("3. Exit");
         ch = sc.nextInt();
         course c = new course();
+        c.start();
         while (ch != 3 ){
             switch (ch) {
                 case 1 -> c.menuInstructor();
