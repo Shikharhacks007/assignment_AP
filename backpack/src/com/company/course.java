@@ -127,7 +127,7 @@ public class course {
             }
         }
         else if (obj instanceof student){
-            if(arr.length != 2){
+            if(arr.length == 2){
                 return arr[1].equals("zip");
             }
             else{
@@ -273,12 +273,15 @@ public class course {
                             System.out.println(getStudents().get(i).getName());
                         }
                         int temp_student = sc.nextInt();
-                        System.out.println("Submission: " + getStudents().get(temp_student).work.get(getAssessments().get(temp)).getSubmissionData());
-                        System.out.println("Max Marks: " + getAssessments().get(temp).getMarks());
-                        System.out.print("Marks Scored: ");
-                        int marks = sc.nextInt();
-                        getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGrade(getInstructors().get(ch),marks);
-                        getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGradedBy(getInstructors().get(ch),getInstructors().get(ch).getName());
+                        if (!getStudents().get(temp_student).work.isEmpty()){
+                            System.out.println("Submission: " + getStudents().get(temp_student).work.get(getAssessments().get(temp)).getSubmissionData());
+                            System.out.println("Max Marks: " + getAssessments().get(temp).getMarks());
+                            System.out.print("Marks Scored: ");
+                            int marks = sc.nextInt();
+                            getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGrade(getInstructors().get(ch),marks);
+                            getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGradedBy(getInstructors().get(ch),getInstructors().get(ch).getName());
+                        }
+
                         break;
 
                     case 6:
