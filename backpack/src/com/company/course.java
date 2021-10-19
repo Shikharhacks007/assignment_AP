@@ -2,7 +2,6 @@ package com.company;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,7 +116,7 @@ public class course {
     }
 
     private boolean checkFile(String content_temp, user obj) {
-        String[] arr = content_temp.split("\\.", 1);
+        String[] arr = content_temp.split("[.]", 0);
         if (obj instanceof instructor){
             if(arr.length == 2){
                 return arr[1].equals("mp4");
@@ -135,7 +134,7 @@ public class course {
             }
         }
         return false;
-    }
+    } //issue here
 
     public void start(){
         instructor iobj = new instructor("Josh");
@@ -270,7 +269,7 @@ public class course {
                         temp = sc.nextInt();
                         System.out.println("Choose ID from these ungraded submissions");
                         for (int i = 0; i < getStudents().size(); i++) {
-                            System.out.println(getStudents().get(i).getName());
+                            System.out.println(i + getStudents().get(i).getName());
                         }
                         int temp_student = sc.nextInt();
                         if (!getStudents().get(temp_student).work.isEmpty()){
@@ -343,44 +342,49 @@ public class course {
                         break;
 
                     case 3:
+                        int statement = 0;
                         for (int i = 0; i < getAssessments().size(); i++) {
                             if (!getStudents().get(ch).work.containsKey(getAssessments().get(i)) && getAssessments().get(i).getOpen()){
                                 if(getAssessments().get(i) instanceof assignment){
                                     System.out.println("ID: " + i + " Assignment: " +
                                             ((assignment) getAssessments().get(i)).getQuestion() + "Max Marks: "
                                             + ((assignment) getAssessments().get(i)).getMarks());
+                                    statement++;
                                 }
                                 else{
                                     System.out.println("ID: " + i + " Question: " +
                                             ((quiz) getAssessments().get(i)).getQuestion());
+                                    statement++;
                                 }
 
                             }
                         }
-                        System.out.print("Enter ID of the assessment: ");
-                        int temp = sc.nextInt();
                         String content_temp;
-                        submissions submissions_obj = new submissions();
-                        if (getAssessments().get(temp) instanceof assignment){
-                            System.out.print("Enter filename of assignment");
-                            content_temp = sc.next();
+                        if (statement>0){
+                            System.out.print("Enter ID of the assessment: ");
+                            int temp = sc.nextInt();
+                            submissions submissions_obj = new submissions();
+                            if (getAssessments().get(temp) instanceof assignment){
+                                System.out.print("Enter filename of assignment");
+                                content_temp = sc.next();
 
-                            // check extension validity
-                            if (!checkFile(content_temp,getStudents().get(ch))){
-                                while (checkFile(content_temp,getStudents().get(ch))){
-                                    System.out.println("Enter again with right extension");
-                                    content_temp = br.readLine();
+                                // check extension validity
+                                if (!checkFile(content_temp,getStudents().get(ch))){
+                                    while (checkFile(content_temp,getStudents().get(ch))){
+                                        System.out.println("Enter again with right extension");
+                                        content_temp = br.readLine();
+                                    }
                                 }
+                                submissions_obj.setSubmissionFile(content_temp);
+                                getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
                             }
-                            submissions_obj.setSubmissionFile(content_temp);
-                            getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
-                        }
-                        else{
-                            System.out.print(getAssessments().get(temp).getQuestion() + ": ");
-                            content_temp = br.readLine();
-                            // check extension validity
-                            submissions_obj.setSubmissionFile(content_temp);
-                            getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
+                            else{
+                                System.out.print(getAssessments().get(temp).getQuestion() + ": ");
+                                content_temp = br.readLine();
+                                // check extension validity
+                                submissions_obj.setSubmissionFile(content_temp);
+                                getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
+                            }
                         }
                         break;
 
