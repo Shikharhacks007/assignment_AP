@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class course {
@@ -109,7 +110,7 @@ public class course {
 
     private void viewAssessments() {
         for (int i = 0; i < getAssessments().size(); i++) {
-            if (!getAssessments().get(i).getDone()){
+            if (getAssessments().get(i).getOpen()){
                 if(getAssessments().get(i) instanceof assignment){
                     System.out.println("ID: " + i + " Assignment: " +
                             ((assignment) getAssessments().get(i)).getQuestion() + "Max Marks: "
@@ -214,6 +215,7 @@ public class course {
                         }
 
                         break;
+
                     case 3:
                         materialSlides();
                         materialVideos();
@@ -222,16 +224,42 @@ public class course {
                     case 4:
                         viewAssessments();
                         break;
+
                     case 5:
-                        System.out.println("grade");
+                        System.out.println("List of assessments");
+                        for (int i = 0; i < getAssessments().size(); i++) {
+                            if(getAssessments().get(i) instanceof assignment){
+                                System.out.println("ID: " + i + " Assignment: " +
+                                        ((assignment) getAssessments().get(i)).getQuestion() + "Max Marks: "
+                                        + ((assignment) getAssessments().get(i)).getMarks());
+                            }
+                            else{
+                                System.out.println("ID: " + i + " Question: " +
+                                        ((quiz) getAssessments().get(i)).getQuestion());
+                            }
+                        }
+                        System.out.print("Enter ID of assessment to view submissions: ");
+                        temp = sc.nextInt();
+                        System.out.println("Choose ID from these ungraded submissions");
+                        for (int i = 0; i < getStudents().size(); i++) {
+                            System.out.println(getStudents().get(i).getName());
+                        }
+                        int temp_student = sc.nextInt();
+                        System.out.println("Submission: " + getStudents().get(temp_student).work.get(getAssessments().get(temp)).getSubmissionData());
+                        System.out.println("Max Marks: " + getAssessments().get(temp).getMarks());
+                        System.out.print("Marks Scored: ");
+                        int marks = sc.nextInt();
+                        getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGrade(getInstructors().get(ch),marks);
+                        getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGradedBy(getInstructors().get(ch),getInstructors().get(ch).getName());
                         break;
+
                     case 6:
                         System.out.println("List of Open Assessments");
                         if (getAssessments().size()>=1){
                             viewAssessments();
                             System.out.print("Enter id of assignment to close: ");
                             temp = sc.nextInt();
-                            getAssessments().get(temp).setDone();
+                            getAssessments().get(temp).setOpen();
                         }
                         else{
                             System.out.println("Nothing is open");
@@ -287,11 +315,64 @@ public class course {
                         break;
 
                     case 3:
-                        System.out.println("submit");
+                        for (int i = 0; i < getAssessments().size(); i++) {
+                            if (!getStudents().get(ch).work.containsKey(getAssessments().get(i)) && getAssessments().get(i).getOpen()){
+                                if(getAssessments().get(i) instanceof assignment){
+                                    System.out.println("ID: " + i + " Assignment: " +
+                                            ((assignment) getAssessments().get(i)).getQuestion() + "Max Marks: "
+                                            + ((assignment) getAssessments().get(i)).getMarks());
+                                }
+                                else{
+                                    System.out.println("ID: " + i + " Question: " +
+                                            ((quiz) getAssessments().get(i)).getQuestion());
+                                }
+
+                            }
+                        }
+                        System.out.print("Enter ID of the assessment: ");
+                        int temp = sc.nextInt();
+                        String content_temp;
+                        submissions submissions_obj = new submissions();
+                        if (getAssessments().get(temp) instanceof assignment){
+                            System.out.print("Enter filename of assignment");
+                            content_temp = sc.next();
+                            // check extension validity
+                            if (false){
+                                while (true){
+                                    System.out.println("Enter again with right extension");
+                                    content_temp = sc.next();
+                                }
+                            }
+                            submissions_obj.setSubmissionFile(content_temp);
+                            getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
+                        }
+                        else{
+                            System.out.print(getAssessments().get(temp).getQuestion() + ": ");
+                            content_temp = sc.next();
+                            // check extension validity
+                            submissions_obj.setSubmissionFile(content_temp);
+                            getStudents().get(ch).setSubmissionsDone(getAssessments().get(temp),submissions_obj);
+                        }
                         break;
 
                     case 4:
-                        System.out.println("View grades");
+                        System.out.println("Graded submissions");
+                        for (Map.Entry<assessments,submissions> m : getStudents().get(ch).work.entrySet()){
+                            submissions sub_obj = m.getValue();
+                            if(sub_obj.getGraded()){
+                                System.out.println("Submission: " + sub_obj.getSubmissionData());
+                                System.out.println("Marks Scored: " + sub_obj.getGrade());
+                                System.out.println("Graded By: " + sub_obj.getGradedBy());
+                            }
+                        }
+
+                        System.out.println("Ungraded submissions");
+                        for (Map.Entry<assessments,submissions> m : getStudents().get(ch).work.entrySet()){
+                            submissions sub_obj = m.getValue();
+                            if(!sub_obj.getGraded()){
+                                System.out.println("Submission: " + sub_obj.getSubmissionData());
+                            }
+                        }
                         break;
 
                     case 5:
@@ -302,7 +383,7 @@ public class course {
                         break;
                     case 6:
                         System.out.print("Enter comment: ");
-                        String content_temp = sc.nextLine();
+                        content_temp = sc.next();
                         String date = "34";
                         comment cobj = new comment(getStudents().get(ch).getName(),date,content_temp );
                         addComments(cobj);

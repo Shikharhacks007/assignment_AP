@@ -3,11 +3,11 @@ package com.company;
 public class assignment implements assessments {
     private int marks;
     private String question;
-    private boolean done;
+    private boolean open;
 
     public assignment(){
         marks = 0;
-        done = false;
+        open = true;
         question = "";
     }
 
@@ -42,12 +42,12 @@ public class assignment implements assessments {
     }
 
     @Override
-    public boolean getDone(){
-        return done;
+    public boolean getOpen(){
+        return open;
     }
 
     @Override
-    public void setDone(){
-        done = true;
+    public void setOpen(){
+        open = false;
     }
 }
