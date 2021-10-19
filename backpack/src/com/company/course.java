@@ -273,13 +273,15 @@ public class course {
                             System.out.println(i + getStudents().get(i).getName());
                         }
                         int temp_student = sc.nextInt();
-                        if (getStudents().get(temp_student).work.containsKey(getAssessments().get(temp))){
-                            System.out.println("Submission: " + getStudents().get(temp_student).work.get(getAssessments().get(temp)).getSubmissionData());
-                            System.out.println("Max Marks: " + getAssessments().get(temp).getMarks());
-                            System.out.print("Marks Scored: ");
-                            int marks = sc.nextInt();
-                            getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGrade(getInstructors().get(ch),marks);
-                            getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGradedBy(getInstructors().get(ch),getInstructors().get(ch).getName());
+                        if (getAssessments().size() != 0){
+                            if (getStudents().get(temp_student).work.containsKey(getAssessments().get(temp))){
+                                System.out.println("Submission: " + getStudents().get(temp_student).work.get(getAssessments().get(temp)).getSubmissionData());
+                                System.out.println("Max Marks: " + getAssessments().get(temp).getMarks());
+                                System.out.print("Marks Scored: ");
+                                int marks = sc.nextInt();
+                                getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGrade(getInstructors().get(ch),marks);
+                                getStudents().get(temp_student).work.get(getAssessments().get(temp)).setGradedBy(getInstructors().get(ch),getInstructors().get(ch).getName());
+                            }
                         }
 
                         break;
