@@ -187,7 +187,7 @@ public class course {
                             for (int i = 1; i <= temp; i++) {
                                 System.out.print("Content of slide " + i + ":");
                                 content_temp = br.readLine();
-                                slide_obj.getSlides().add(content_temp);
+                                slide_obj.setSlides(content_temp);
                             }
                             slide_obj.setDate(dateSetter());
                             slide_obj.setUploadedBy(getInstructors().get(ch).getName());

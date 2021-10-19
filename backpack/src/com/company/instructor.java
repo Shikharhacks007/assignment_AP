@@ -5,14 +5,10 @@ import java.util.ArrayList;
 
 public class instructor implements user {
     private final String course;
-    private String name;
+    private final String name;
     public instructor(String name){
         course = "course1";
         this.name = name;
-    }
-
-    void setName(String n){
-        name = n;
     }
 
     String getCourse(){
@@ -42,9 +38,9 @@ public class instructor implements user {
 
     @Override
     public void view_comments(ArrayList<comment> getComments) {
-        for (int i = 0; i < getComments.size() ; i++) {
-            System.out.println(getComments.get(i).getMessage() + " - " +  getComments.get(i).getName());
-            System.out.println(getComments.get(i).getDate());
+        for (comment getComment : getComments) {
+            System.out.println(getComment.getMessage() + " - " + getComment.getName());
+            System.out.println(getComment.getDate());
         }
     }
 

@@ -2,7 +2,7 @@ package com.company;
 
 public class submissions {
     private int grade;
-    private assessments temp;
+//    private assessments temp;
     private String submissionData;
     private boolean graded;
     private String gradedBy;
