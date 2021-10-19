@@ -81,15 +81,16 @@ public class course {
     private void materialVideos() {
         for (int i = 0; i < getVideos().size(); i++) {
             System.out.println("Title of video: " + getVideos().get(i).getTitle());
-            System.out.println("Video File" + getVideos().get(i).getVideoFile());
+            System.out.println("Video File: " + getVideos().get(i).getVideoFile());
             System.out.println("Date of Upload: " + getVideos().get(i).getDate());
             System.out.println("Uploaded by: " + getVideos().get(i).getUploadedBy());
+            System.out.println();
         }
     }
 
     private void materialSlides() {
         for (int i = 0; i < getSlides().size(); i++) {
-            System.out.println("Title" + getSlides().get(i).getTitle());
+            System.out.println("Title: " + getSlides().get(i).getTitle());
             for (int j = 0; j < getSlides().get(i).getCount(); j++) {
                 System.out.println("Slide " + j + getSlides().get(i).getSlides().get(j));
             }
@@ -184,7 +185,7 @@ public class course {
                             System.out.print("Enter number of slides: ");
                             temp = sc.nextInt();
                             slide_obj.setCount(temp);
-                            System.out.println("Enter content of slides");
+                            System.out.println("Enter content of slides: ");
                             for (int i = 1; i <= temp; i++) {
                                 System.out.print("Content of slide " + i + ":");
                                 content_temp = br.readLine();
@@ -209,9 +210,9 @@ public class course {
                                     System.out.println("Enter again with right extension");
                                     content_temp = br.readLine();
                                 }
-                                video_obj.setVideoFile(content_temp);
-                                video_obj.setDate(dateSetter());
                             }
+                            video_obj.setVideoFile(content_temp);
+                            video_obj.setDate(dateSetter());
                             video_obj.setUploadedBy(getInstructors().get(ch).getName());
                             addVideo(video_obj);
                         }
@@ -268,9 +269,9 @@ public class course {
                         }
                         System.out.print("Enter ID of assessment to view submissions: ");
                         temp = sc.nextInt();
-                        System.out.println("Choose ID from these ungraded submissions");
+                        System.out.println("Choose ID from these ungraded submissions: ");
                         for (int i = 0; i < getStudents().size(); i++) {
-                            System.out.println(i + getStudents().get(i).getName());
+                            System.out.println(i +". " + getStudents().get(i).getName());
                         }
                         int temp_student = sc.nextInt();
                         if (getAssessments().size() != 0){
