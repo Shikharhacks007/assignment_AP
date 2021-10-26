@@ -29,7 +29,7 @@ public class player{
     }
 
     public void setPosition(Object obj, int temp){
-        if (obj instanceof game){
+        if (obj instanceof game || obj instanceof floor){
             position += temp;
         }
         else{

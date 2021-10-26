@@ -30,7 +30,16 @@ public class ladder extends floor {
         pobj.setScore(fobj,fobj.getFloorPoints());
     }
 
-    public void goFloor(){
-        System.out.println("move");
+    public int  getgoFloor(){
+        return gotoFloor;
+    }
+
+    public void goFloor(player pobj, floor fobj){
+        pobj.setPosition(fobj, getgoFloor());
+        System.out.println("Player position Floor- " + pobj.getPosition());
+        System.out.println(pobj.getName()+ " has reached an empty floor");
+        emptyFloor temp = new emptyFloor(Integer.MAX_VALUE);
+        fobj.jump(pobj, temp);
+        System.out.println("Total points " + pobj.getScore());
     }
 }
