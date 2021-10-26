@@ -8,8 +8,8 @@ public class dice {
     }
 
     private void roll() {
-//        move = (int) ((Math.random() * 2) + 1);
-        move = 1; //for testing purpose
+        move = (int) ((Math.random() * 2) + 1);
+//        move = 1; //for testing purpose
     }
 
     public int getMove() {

@@ -35,4 +35,8 @@ public class cheatSheet {
             e.printStackTrace();
         }
     }
+
+    public int[] way(){
+        return new int[]{1,2,2,1};
+    }
 }
