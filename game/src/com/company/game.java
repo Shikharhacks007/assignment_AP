@@ -51,7 +51,6 @@ public class game {
         System.out.println("Hit enter to roll the dice");
         sc.nextLine();
         int move = d.getMove();
-
         while (true){
             if (move == 2){
                 System.out.println("Dice gave " + move);
@@ -64,53 +63,60 @@ public class game {
                 System.out.println("Player position Floor- " + player1.getPosition());
                 System.out.println(player1.getName() + " " + "has reached an " + floors.get(player1.getPosition()).toString());
                 System.out.println("Total points " + player1.getScore());
-                while (player1.getPosition() <= 13){
+                while (player1.getPosition() < 13){
                     System.out.println("Hit enter to roll the dice");
                     sc.nextLine();
                     move = d.getMove();
                     System.out.println("Dive gave " + move);
-                    player1.setPosition(gobj,move);
-                    if (floors.get(player1.getPosition()) instanceof elevator) {
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        player1.setPosition(gobj,8);
-                        System.out.println("Player position Floor- " + player1.getPosition());
-                        System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        System.out.println("Total points " + player1.getScore());
+                    if (player1.getPosition() + move > 13){
+                        System.out.println("Sorry you cant move");
                     }
-                    else if (floors.get(player1.getPosition()) instanceof ladder) {
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        player1.setPosition(gobj,4);
-                        System.out.println("Player position Floor- " + player1.getPosition());
-                        System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        System.out.println("Total points " + player1.getScore());
-                    }
-                    else if (floors.get(player1.getPosition()) instanceof snake) {
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        player1.setPosition(gobj,-4);
-                        System.out.println("Player position Floor- " + player1.getPosition());
-                        System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        System.out.println("Total points " + player1.getScore());
-                    }
-                    else if (floors.get(player1.getPosition()) instanceof cobra) {
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        player1.setPosition(gobj,-8);
-                        System.out.println("Player position Floor- " + player1.getPosition());
-                        System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        System.out.println("Total points " + player1.getScore());
+                    else{
+                        player1.setPosition(gobj,move);
+                        if (floors.get(player1.getPosition()) instanceof elevator) {
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            player1.setPosition(gobj,8);
+                            System.out.println("Player position Floor- " + player1.getPosition());
+                            System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            System.out.println("Total points " + player1.getScore());
+                        }
+                        else if (floors.get(player1.getPosition()) instanceof ladder) {
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            player1.setPosition(gobj,4);
+                            System.out.println("Player position Floor- " + player1.getPosition());
+                            System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            System.out.println("Total points " + player1.getScore());
+                        }
+                        else if (floors.get(player1.getPosition()) instanceof snake) {
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            player1.setPosition(gobj,-4);
+                            System.out.println("Player position Floor- " + player1.getPosition());
+                            System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            System.out.println("Total points " + player1.getScore());
+                        }
+                        else if (floors.get(player1.getPosition()) instanceof cobra) {
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            player1.setPosition(gobj,-8);
+                            System.out.println("Player position Floor- " + player1.getPosition());
+                            System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            System.out.println("Total points " + player1.getScore());
 
+                        }
+                        else {
+                            floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
+                            System.out.println("Player position Floor- " + player1.getPosition());
+                            System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
+                            System.out.println("Total points " + player1.getScore());
+                        }
                     }
-                    else {
-                        floors.get(player1.getPosition()).jump(player1, floors.get(player1.getPosition()));
-                        System.out.println("Player position Floor- " + player1.getPosition());
-                        System.out.println(player1.getName()+ " has reached an " + floors.get(player1.getPosition()).toString());
-                        System.out.println("Total points " + player1.getScore());
-                    }
+
                 }
                 System.out.println("you won");
+                break;
             }
             System.out.println("Hit enter to roll the dice");
             sc.nextLine();

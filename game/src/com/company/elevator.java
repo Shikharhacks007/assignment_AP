@@ -31,6 +31,6 @@ public class elevator extends ladder {
 
     @Override
     public void goFloor(){
-        System.out.println("move");
+
     }
 }
