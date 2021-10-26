@@ -23,7 +23,6 @@ public class cheatSheet {
                         ******************ebiased*****************************
                         Enter when prompted for the first dice roll""");
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
             }
             catch (IOException e) {
                 System.out.println("An error occurred.");
