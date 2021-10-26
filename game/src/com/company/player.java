@@ -19,9 +19,6 @@ public class player{
         if (obj instanceof floor){
             score += a;
         }
-        else{
-            System.out.println("not allowed");
-        }
     }
 
     public String getName(){
@@ -31,9 +28,6 @@ public class player{
     public void setPosition(Object obj, int temp){
         if (obj instanceof game || obj instanceof floor){
             position += temp;
-        }
-        else{
-            System.out.println("not allowed");
         }
     }
 

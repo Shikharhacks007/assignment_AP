@@ -38,9 +38,9 @@ public class game {
             }
         }
 
-        for (int i = 13; i > -1; i--) {
-            System.out.println(i + " " + floors.get(i).getClass());
-        }
+//        for (int i = 13; i > -1; i--) {
+//            System.out.println(i + " " + floors.get(i).getClass());
+//        }
 
         System.out.println("-----------------------------------");
         System.out.println("The game setup is ready");
