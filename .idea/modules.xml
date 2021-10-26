@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/assignment_AP.iml" filepath="$PROJECT_DIR$/.idea/assignment_AP.iml" />
       <module fileurl="file://$PROJECT_DIR$/backpack/backpack.iml" filepath="$PROJECT_DIR$/backpack/backpack.iml" />
       <module fileurl="file://$PROJECT_DIR$/covin/covin.iml" filepath="$PROJECT_DIR$/covin/covin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game/game.iml" filepath="$PROJECT_DIR$/game/game.iml" />
     </modules>
   </component>
 </project>
