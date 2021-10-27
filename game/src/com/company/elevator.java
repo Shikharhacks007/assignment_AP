@@ -1,8 +1,8 @@
 package com.company;
 
 public class elevator extends ladder {
-    protected int floorPosition;
-    protected int floorPoints;
+//    protected int floorPosition;
+//    protected int floorPoints;
 
     public elevator(int a) {
         super(a);

@@ -1,8 +1,8 @@
 package com.company;
 
 public class cobra extends snake{
-    protected int floorPosition;
-    protected int floorPoints;
+//    protected int floorPosition;
+//    protected int floorPoints;
     public cobra(int a) {
         super(a);
         this.floorPosition = a;
