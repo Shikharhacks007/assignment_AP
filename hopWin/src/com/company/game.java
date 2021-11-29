@@ -62,6 +62,7 @@ public class game {
                     }
                     else{
                         System.out.println("Wrong answer");
+                        System.out.println("You did not win any soft toy");
                     }
                 }
                 catch (NullPointerException e) {
@@ -81,6 +82,7 @@ public class game {
                     }
                     else{
                         System.out.println("Wrong answer");
+                        System.out.println("You did not win any soft toy");
                     }
                 }
                 catch (Exception e) {
@@ -106,7 +108,6 @@ public class game {
         while (n <= 5){
             System.out.print("Press enter for your " + n + " move");
             char c = (char)br.read();
-//            br.read();
             while (true){
                 try{
                     if (c == '\n') {
