@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ExceptionHandler {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Hit enter to initialize the game");
+        System.out.print("Hit enter to initialize the game");
         char c = (char)br.read();
         if (c == ' ') {
             System.out.println("Please click the enter key");

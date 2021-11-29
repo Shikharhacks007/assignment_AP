@@ -6,7 +6,7 @@ public class bucket {
     private final ArrayList<softToy> prizes;
 
     public bucket(){
-        prizes = new ArrayList<softToy>();
+        prizes = new ArrayList<>();
     }
 
     public void addPrize(softToy sobj, Object obj){

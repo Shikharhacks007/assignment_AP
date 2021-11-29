@@ -4,20 +4,22 @@ public class calculator <template> {
     private template obj1;
     private template obj2;
 
-    public template calculate(template a, template b){
-        if (a instanceof Double && b instanceof Double){
-            //do this
-            return (template) (Double)((Double)a / (Double)b);
+    public <template> template calculate(template a, template b){
+        try{
+            if (a instanceof Integer && b instanceof Integer){
+                //do this
+                return (template) (Integer)((Integer)a / (Integer) b);
+            }
+
+            else if (a instanceof String && b instanceof String){
+                //do this
+                return (template) (String) ((String)a + (String)b);
+            }
         }
 
-        if (a instanceof String && b instanceof String){
-            //do this
-            return (template) (String) ((String)a + (String)b);
+        catch (ArithmeticException e){
+            System.out.println("Division by 0 is not allowed");
         }
-
-        else{
-            //do something
-            return null;
-        }
+        return null;
     }
 }
